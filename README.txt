@@ -1,51 +1,46 @@
-@author Karl Holz <newaeon|a|mac|d|com>
-@package feedMe
 
-//#############################################################################################
- FeedMe - jQuery RSS 2.0 + ATOM/iTunes parser
- 
+# FeedMe 2.0 - jQuery RSS 2.0 + ATOM/iTunes parser
+
 feedMe is a basic RSS feed and Podcast parser with XML namespace support for your Javascript and jQuery web apps.
+
+I have removed both the JSON and Base64 outputs and removed the dependancy on the files Base64.js and JSON.js.
+
+I have done some repairs to the code and tested it with jQuery 3.1.0, I have also removed the properties that are left empty or undefined so that the object is smaller and has less wasted space.
+
+Check it out in the prettyprint output to see what is read from your feeds/podcasts
+
+You can view the feed with Bootstrap using the text.html.
+
+test-1.0.html is my first version.
+
+I am thinking of adding an html5 playback support later on.
+
+## Reference
+
+* [RSS 2.0](http://www.rssboard.org/rss-2-0)
+
+* Reference for iTunes Podcasting: [spec](http://www.apple.com/itunes/podcasts/specs.html) [howto](http://www.podcast411.com/howto_1.html)
  
-//#############################################################################################
- Reference for RSS 2.0
- 
- http://www.rssboard.org/rss-2-0
-
- Reference for iTunes Podcasting 
-
- http://www.apple.com/itunes/podcasts/specs.html
- http://www.podcast411.com/howto_1.html
- 
- Reference for ATOM
- 
- http://tools.ietf.org/html/rfc4287
- 
+* Reference for [ATOM](http://tools.ietf.org/html/rfc4287)
 
 
-This class returns
-- a normal Javascript object
-- a JSON string
-- a Base64 encoded JSON string
+This class returns a normal Javascript object
 
-example:
+### Display Example with my jQuery Plugin, feedRead:
 
-$('link[type="application/rss+xml"]').each(function() {
- var link = $(this).attr('href');
- // for base64 encoded JSON string: feedMe(link,'base');
- // for JSON encoded string:        feedMe(link,'json');
- // for normal javascript object you only need an RSS url link
- var f = feedMe(link);
- /**  Do something with the object  */
-});
+        jQuery(function ($) {
+            var feeds = [];
+
+            $.feedRead({
+                itunes: true, //podcast url
+                debug: true,
+                feed_list:  '#podcast',
+                feed: '#playlist',
+                channel:  '#chan_info',
+                item: '#play_info'
+            });
 
 
-The test.html has an example of printing the returned javascript object with prettyprint
-- http://james.padolsey.com/javascript/prettyprint-for-javascript/
+### test-1.0.html
 
-The base64 string can be decoded with the class in base64.js
-
-- Base64.decode(<Base64 string>);
-
-The JSON string can be turned into a javascript object with JSON.js
-
-- JSON.parse(<JSON string>);
+This page has an example of printing the returned javascript object with [prettyprint](http://james.padolsey.com/javascript/prettyprint-for-javascript/)
